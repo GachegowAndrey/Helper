@@ -99,17 +99,15 @@ style="width:40%">
 <button type="button" onclick="time()">Сегодня!</button><br>
 <button id="show" onclick="document.getElementById('slider').style.display='block'; document.getElementById('show').style.display='none'; document.getElementById('hide').style.display='block';" style="display:block;" data-title="можно клавишами">Показать слайдер</button>
 <button id="hide" onclick="document.getElementById('slider').style.display='none'; document.getElementById('show').style.display='block'; document.getElementById('hide').style.display='none';" style="display:none;">Скрыть слайдер</button>
+<button id="showAudio" onclick="document.getElementById('audioPlayer').style.display='block'; document.getElementById('showAudio').style.display='none'; document.getElementById('hideAudio').style.display='block';" style="display:block;" data-title="можно клавишами">Показать аудиоплеер</button>
+<button id="hideAudio" onclick="document.getElementById('audioPlayer').style.display='none'; document.getElementById('showAudio').style.display='block'; document.getElementById('hideAudio').style.display='none';" style="display:none;">Скрыть плееер</button>
     <button type="button" onclick="Schedule()" >Расписание</button><br>
     <button type="button" onclick="MySkills()">Что ты умеешь?</button><br>
     <button type="button" onclick="">Закрыть</button><br>
     
 		
 <!--Начинаем абзац с красной строки-->
-<p style="text-indent:20px">
-Что-то не неизвестном</p>
 
-<p style="text-indent:20px">Непонятные изречения
-</p>
 <!--Закрываем ячейку-->
 </td>
 
@@ -122,7 +120,7 @@ style="width:40%">
 <!--Абзац для ссылки на страницу сайта-->
 <p>
 <!--Ссылка на страницу сайта-->
-Somethins
+
 </p>
 <!--Закрываем строку Меню-->
 </td>
@@ -135,6 +133,39 @@ Somethins
 	    <button id="buttonP" >Prew</button>
         <button id="buttonN" >Next</button>
 	</div>
+	<div class="player" id="audioPlayer" style="display: none;">
+
+<div class="details">
+<div class="now-playing">PLAYING x OF y</div>
+<div class="track-art"></div>
+<div class="track-name">Track Name</div>
+<div class="track-artist">Track Artist</div>
+</div>
+
+<div class="buttons">
+<button class="prvTr" onclick="prevTrack()"><=</button> 
+
+
+<button class="plP" onclick="playpauseTrack()">|></button> 
+
+
+<button class="nxtTr" onclick="nextTrack()">=></button>
+
+
+</div>
+
+<div class="slider_container">
+<div class="current-time">00:00</div>Duration<div class="total-duration">00:00</div>
+<input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+
+</div>
+
+<div class="slider_container">
+<i class="fa fa-volume-down">Volume</i>
+<input type="range" min="1" max="100" value="99" class="volume_slider" onchange="setVolume()">
+<i class="fa fa-volume-up"></i>
+</div>
+</div>
 </td>
 </tr>
 
@@ -175,6 +206,220 @@ style="width:100%; border-radius:5px;">
 </td>
 </tr>
 </table>
+<script type="text/javascript">
+	// Выбераем все элементы на HTML-странице
+// и присвоить их переменной
+let now_playing = document.querySelector(".now-playing");
+let track_art = document.querySelector(".track-art");
+let track_name = document.querySelector(".track-name");
+let track_artist = document.querySelector(".track-artist");
+
+let playpause_btn = document.querySelector(".plP");
+let next_btn = document.querySelector(".nxtTr");
+let prev_btn = document.querySelector(".prvTr");
+
+let seek_slider = document.querySelector(".seek_slider");
+let volume_slider = document.querySelector(".volume_slider");
+let curr_time = document.querySelector(".current-time");
+let total_duration = document.querySelector(".total-duration");
+
+// Указываем глобально используемые значения
+let track_index = 0;
+let isPlaying = false;
+let updateTimer;
+
+// Создаём аудио элемент для плеера
+let curr_track = document.createElement('audio');
+
+// Определяем список треков, которые должны быть воспроизведены
+let track_list = [
+{
+name: "Game of ThronesEnd",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/igra-prestolov--3-sezon-4-seriya-konec.mp3"
+},
+{
+name: "ArmyOfWizard",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/ArmyOfWizard.mp3"
+},
+{
+name: "EarthMainTheme",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/EarthMainTheme.mp3"
+},
+{
+name: "Blues",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/Blues.mp3"
+},
+{
+name: "Voland",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/Voland.mp3"
+},
+{
+name: "Game of Thrones Drakaris",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/igra-prestolov-drakaris.mp3"
+},
+{
+name: "Game of ThronesMainTheme",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/igra-prestolov-osnovnaya-tema-veolonchel.mp3",
+},
+];
+
+function loadTrack(track_index) {
+// Очистить предыдущий таймер поиска
+clearInterval(updateTimer);
+resetValues();
+    
+// Загрузить новый трек
+curr_track.src = track_list[track_index].path;
+curr_track.load();
+    
+// Обновить информацию о треке
+track_art.style.backgroundImage = "url(" + track_list[track_index].image + ")";
+track_name.textContent = track_list[track_index].name;
+track_artist.textContent = track_list[track_index].artist;
+now_playing.textContent = "PLAYING " + (track_index + 1) + " OF " + track_list.length;
+    
+// Установливаем интервал 1000 миллисекунд
+// для обновления ползунка поиска
+updateTimer = setInterval(seekUpdate, 1000);
+    
+// Перейти к следующему треку, если текущий закончил воспроизведение
+// используя событие "завершено"
+curr_track.addEventListener("ended", nextTrack);
+    
+// Применить случайный цвет фона
+random_bg_color();
+}
+    
+function random_bg_color() {
+// Получить случайное число от 64 до 256
+// (для получения более светлых тонов)
+let red = Math.floor(Math.random() * 256) + 64;
+let green = Math.floor(Math.random() * 256) + 64;
+let blue = Math.floor(Math.random() * 256) + 64;
+    
+// Построить цвет с заданными значениями
+let bgColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+    
+// Установить фон на новый цвет
+document.body.style.background = bgColor;
+}
+    
+// Функция для сброса всех значений по умолчанию
+function resetValues() {
+curr_time.textContent = "00:00";
+total_duration.textContent = "00:00";
+seek_slider.value = 0;
+}
+
+function playpauseTrack() {
+// Переключение между воспроизведением и паузой
+// в зависимости от текущего состояния
+if (!isPlaying) playTrack();
+else pauseTrack();
+}
+    
+function playTrack() {
+// Воспроизвести загруженный трек
+curr_track.play();
+isPlaying = true;
+    
+// Заменить значок на значок паузы
+playpause_btn.innerHTML = '||';
+}
+    
+function pauseTrack() {
+// Приостановить загруженный трек
+curr_track.pause();
+isPlaying = false;
+    
+// Заменить значок на значок воспроизведения
+playpause_btn.innerHTML = '|>';
+}
+    
+function nextTrack() {
+// Вернитесь к первой дорожке, если
+// текущий является последним в списке треков
+if (track_index < track_list.length - 1)
+track_index += 1;
+else track_index = 0;
+    
+// Загрузите и воспроизведите новый трек
+loadTrack(track_index);
+playTrack();
+}
+    
+function prevTrack() {
+// Вернитесь к последней дорожке, если
+// текущая первая в списке треков
+if (track_index > 0)
+track_index -= 1;
+else track_index = track_list.length - 1;
+    
+// Загрузите и воспроизведите новый трек
+loadTrack(track_index);
+playTrack();
+}
+
+function seekTo() {
+// Рассчитать позицию поиска по
+// процент ползунка поиска
+// и получить относительную продолжительность трека
+seekto = curr_track.duration * (seek_slider.value / 100);
+    
+// Установите текущую позицию трека на рассчитанную позицию поиска
+curr_track.currentTime = seekto;
+}
+    
+function setVolume() {
+// Установите громкость в соответствии с
+// процент установленного ползунка громкости
+curr_track.volume = volume_slider.value / 100;
+}
+    
+function seekUpdate() {
+let seekPosition = 0;
+    
+// Проверьте, является ли продолжительность текущей дорожки разборчивым числом
+if (!isNaN(curr_track.duration)) {
+seekPosition = curr_track.currentTime * (100 / curr_track.duration);
+seek_slider.value = seekPosition;
+    
+// Рассчитать оставшееся время и общую продолжительность
+let currentMinutes = Math.floor(curr_track.currentTime / 60);
+let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
+let durationMinutes = Math.floor(curr_track.duration / 60);
+let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
+    
+// Добавьте ноль к однозначным значениям времени
+if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
+if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+    
+// Показать обновленную продолжительность
+curr_time.textContent = currentMinutes + ":" + currentSeconds;
+total_duration.textContent = durationMinutes + ":" + durationSeconds;
+}
+}
+
+// Загрузить первый трек в треклисте
+loadTrack(track_index);
+</script>
+
 <script src="js/script.js"></script>
 <script>
 	function randomInteger(min, max) {
