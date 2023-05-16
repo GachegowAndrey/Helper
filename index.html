@@ -4,9 +4,24 @@
 <meta charset="utf-8" />
 <title>Helper</title>
 <style type="text/css">
-		#img{
-			width: 70%;
-		}
+	/*downloadImage*/
+	input[type=file] {
+  display: none; }	
+.inputFileIcon  {
+  position: relative;
+  /*top: 90%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  display: block;*/
+  cursor: pointer;
+  border-radius: 15px;
+  border: 3px solid #000; }
+
+
+
 		#buttonP:hover, #buttonN:hover{
 			cursor: pointer;
 			 
@@ -17,9 +32,7 @@
 			left: 12%; top: 50%; /* Положение подсказки */
             z-index: 1; /* Отображаем подсказку поверх других элементов */
             background: rgba(255,0,0,0.9); /* Полупрозрачный цвет фона */
-            color: white;
-
-			
+            color: white;			
 		}
 	</style>
 </head>
@@ -101,6 +114,7 @@ style="width:30%">
 <button id="hide" onclick="document.getElementById('slider').style.display='none'; document.getElementById('show').style.display='block'; document.getElementById('hide').style.display='none';" style="display:none;">Скрыть слайдер</button>
 <button id="showAudio" onclick="document.getElementById('audioPlayer').style.display='block'; document.getElementById('showAudio').style.display='none'; document.getElementById('hideAudio').style.display='block';" style="display:block;" data-title="можно клавишами">Показать аудиоплеер</button>
 <button id="hideAudio" onclick="document.getElementById('audioPlayer').style.display='none'; document.getElementById('showAudio').style.display='block'; document.getElementById('hideAudio').style.display='none';" style="display:none;">Скрыть плееер</button>
+    <button type="button" onclick="changeLog()" >Изменения</button><br>
     <button type="button" onclick="Schedule()" >Расписание</button><br>
     <button type="button" onclick="MySkills()">Что ты умеешь?</button><br>
     <button type="button" onclick="">Закрыть</button><br>
@@ -129,9 +143,17 @@ style="width:30%">
 	<h1>Общение</h1>
 	<p id="text"></p>
 	<div id="slider" style="display: none;" >
-		<img src="data/res/BW.jpg" id="img" ><br>
+		<img src="data/res/BW.jpg" id="img" style="height:150px"><br>
 	    <button id="buttonP" >Prew</button>
         <button id="buttonN" >Next</button>
+        <div class="downloadButton">
+        	<label>
+        		<img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
+            width="25" >
+<input  type="file" onchange="donwload(this)" multiple="true">
+        	</label>
+</div>
+
 	</div>
 	<div class="player" id="audioPlayer" style="display: none;">
 
@@ -144,14 +166,15 @@ style="width:30%">
 
 <div class="buttons">
 <button class="prvTr" onclick="prevTrack()"><=</button> 
-
-
 <button class="plP" onclick="playpauseTrack()">|></button> 
-
-
 <button class="nxtTr" onclick="nextTrack()">=></button>
-
-
+<!--<div dropzone>
+	<label>
+        		<img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
+            width="25" >
+  <span class="material-icons"></span>
+  <input type="file" accept="audio/*"></label>
+</div>-->
 </div>
 
 <div class="slider_container">
@@ -206,6 +229,48 @@ style="width:100%; border-radius:5px;">
 </td>
 </tr>
 </table>
+<script type="text/javascript" name="downloadAudio">
+	dropZone.onclick = () => {
+  input.click();
+  input.onchange = () => {
+    file = input.files[0];
+    track_list.push(
+    	{name:"",
+    	artist:"",
+    	image:"",
+    	path:file}
+    	);
+//{
+//name: "ArmyOfWizard",
+//artist: "неизвестно",
+//image: "Image URL",
+//path: "data/mp3/ArmyOfWizard.mp3"
+//}
+    //playTrack(file);
+  };
+};
+</script>
+<script type="text/javascript" name="change">
+	var log=["16 мая: \n-добавлен аудиоплеер\n -добавлена кнопка загрузки изображения в слайдер"]
+	function changeLog(){
+		
+
+		alert(log);
+	}
+</script>
+<script type="text/javascript" name="donwloadImages">
+	function donwload(input) {   
+    let reader = new FileReader();//считываем
+	let file = input.files[0];//ввод
+    reader.readAsDataURL(file);//читаем url
+
+    reader.onload = function () {
+        let img = document.createElement('img');//создаем элемент 
+        img.src = reader.result;
+		images.push(reader.result);//адресс картинки
+    }
+}
+</script>
 <script type="text/javascript">
 	// Выбераем все элементы на HTML-странице
 // и присвоить их переменной
