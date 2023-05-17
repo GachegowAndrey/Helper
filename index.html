@@ -4,6 +4,79 @@
 <meta charset="utf-8" />
 <title>Helper</title>
 <style type="text/css">
+	.sliders span{
+  line-height: 41px;
+  font-size: 35px;
+  color: black;
+}
+	/*Size image*/
+	#img{
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+		#img:hover{opacity: 0.7;}
+		.modal{
+			display: none;
+			position: fixed;
+			z-index: 1;
+			padding-top: 100px;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgb(0,0,0);
+			background-color: rgba(0,0,0,0.9);
+		}
+		.modal-content{
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 700px;
+		}
+		#caption{
+			margin: auto;
+			display: block;
+			width: 80%;
+			max-width: 700px;
+			text-align: center;
+			color: #ccc;
+			padding: 10px 0;
+			height: 150px;
+		}
+		.modal-content, #caption{
+			-webkit-animation-name:zoom;
+			-webkit-animation-duration:0.6s;
+			animation-name: zoom;
+			animation-duration: 0.6s;
+		}
+
+		@-webkit-keyframes zoom{
+			from{-webkit-transform:scale(0);}
+			to{-webkit-transform:scale(1);}
+		}
+		@keyframes zoom{
+			from{transform:scale(0);}
+			to{transform:scale(1);}
+		}
+		.close{
+			position: absolute;
+			top: 15px;
+			right: 35px;
+			color: #f1f1f1;
+			font-size: 40px;
+			font-weight: bold;
+			transition: 0.3s;
+		}
+		.close:hover, .close:focus{
+			color:#bbb;
+			text-decoration: none;
+			cursor: pointer;
+		}
+		@media only screen and(max-width: 700px){
+			.modal-content{width: 100%;}
+		}
 	/*downloadImage*/
 	input[type=file] {
   display: none; }	
@@ -108,16 +181,23 @@ rowspan="2"
 style="width:30%">
 
 <h2>Текстовая информация</h2>
+<div id="info" style="display:block;">
 <button onclick="Hi()">Hello</button><br>
 <button type="button" onclick="time()">Today!</button><br>
-<button id="show" onclick="document.getElementById('slider').style.display='block'; document.getElementById('show').style.display='none'; document.getElementById('hide').style.display='block';" style="display:block;" data-title="можно клавишами">Показать слайдер</button>
+<button type="button" onclick="document.getElementById('skills').style.display='block'; document.getElementById('info').style.display='none';">Что ты умеешь?</button><br>
+<button type="button" onclick="changeLog()" >Изменения</button><br> 
+</div>
+<div id="skills" style="display:none;">
+	<button id="show" onclick="document.getElementById('slider').style.display='block'; document.getElementById('show').style.display='none'; document.getElementById('hide').style.display='block';" style="display:block;" data-title="можно клавишами">Показать слайдер</button>
 <button id="hide" onclick="document.getElementById('slider').style.display='none'; document.getElementById('show').style.display='block'; document.getElementById('hide').style.display='none';" style="display:none;">Скрыть слайдер</button>
 <button id="showAudio" onclick="document.getElementById('audioPlayer').style.display='block'; document.getElementById('showAudio').style.display='none'; document.getElementById('hideAudio').style.display='block';" style="display:block;" data-title="можно клавишами">Показать аудиоплеер</button>
 <button id="hideAudio" onclick="document.getElementById('audioPlayer').style.display='none'; document.getElementById('showAudio').style.display='block'; document.getElementById('hideAudio').style.display='none';" style="display:none;">Скрыть плееер</button>
-    <button type="button" onclick="changeLog()" >Изменения</button><br>
+    
     <button type="button" onclick="Schedule()" >Расписание</button><br>
-    <button type="button" onclick="MySkills()">Что ты умеешь?</button><br>
-    <button type="button" onclick="">Закрыть</button><br>
+    
+    <button type="button" onclick="document.getElementById('info').style.display='block'; document.getElementById('skills').style.display='none';">Закрыть</button><br>
+</div>
+
     
 		
 <!--Начинаем абзац с красной строки-->
@@ -130,7 +210,13 @@ style="width:30%">
 <!--Создаём ячейку сайдбара-->
 <td bgcolor="#efeffa" style="width:25%">
 <h3>Картинка</h3>
-<img width="180" height="300" src="data/icons/FirstIcon.jpg"/>
+<img width="180" height="300" src="data/icons/FirstIcon.jpg"  />
+ 	<div id="myModal" class="modal">
+ 		<span class="close" onclick="document.getElementById('myModal').style.display='none' ">&times;</span>
+ 		<div class="sliders left"><span class="fas fa-angle-right">&#10094;</span></div>
+ 		<img  class="modal-content" id="img01">
+ 		<div class="sliders right"><span class="fas fa-angle-right">&#10095;</span></div>
+ 		<div id="caption"></div>
 <!--Абзац для ссылки на страницу сайта-->
 <p>
 <!--Ссылка на страницу сайта-->
@@ -142,10 +228,11 @@ style="width:30%">
 	<!--Speakins -->
 	<h1>Общение</h1>
 	<p id="text"></p>
-	<div id="slider" style="display: none;" >
-		<img src="data/res/BW.jpg" id="img" style="height:150px"><br>
-	    <button id="buttonP" >Prew</button>
-        <button id="buttonN" >Next</button>
+	<div id="slider" style="display: none;">
+		<button id="buttonP" >&#10094;</button >
+		<img src="data/res/BW.jpg" id="img" style="height:150px"class="Images" >
+	    
+        <button   id="buttonN" >&#10095;</button  >
         <div class="downloadButton">
         	<label>
         		<img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
@@ -223,6 +310,7 @@ style="width:100%; border-radius:5px;">
 <!--Создаём столбец-->
 <th>
 <h3>Подвал</h3>
+
 <!--Закрываем таблицу подвала. При желании в подвале можно
 сделать несколько строк и столбцов-->
 </th>
@@ -232,6 +320,41 @@ style="width:100%; border-radius:5px;">
 </td>
 </tr>
 </table>
+<script type="text/javascript" name="modalImage">
+	var modal =document.getElementById('myModal');
+var img =document.getElementById('img');
+var modalImg = document.getElementById("img01");
+var captionText=document.getElementById("caption");
+
+img.onclick=function(){
+	
+	modal.style.display="block";
+	
+	modalImg.src=this.src;
+	captionText.innerHTML=this.alt;
+
+}
+
+for(i=0;i<imgArr.length;i++){
+		var picture = imgArr[i];
+		picture.onclick = function(){
+			openImg(this);
+		}
+	}
+	function openImg(pic){
+
+		modalWindow.style.display='block';
+		modalBlock.style.transform = 'translateY(0%)';
+		modalImg.src = pic.src;
+		modalImg.alt = pic.alt;
+	  caption.innerHTML = modalImg.alt;
+	}
+var span =document.getElementByClassName("close")[0];
+span.onclick=function(){
+	modal.style.display="none";
+	
+}
+</script>
 <script type="text/javascript" name="loadAudio">
 	function changeHandler({
   target
@@ -242,7 +365,7 @@ style="width:100%; border-radius:5px;">
   // Create a blob that we can use as an src for our audio element
   const urlObj = URL.createObjectURL(target.files[0]);
   track_list.push({
-  	name:"",
+  	name:target.files[0].name,
   	artist:"",
   	image:"",
   	path:urlObj
@@ -300,7 +423,7 @@ document
 };
 </script>
 <script type="text/javascript" name="change">
-	var log=["16 мая: \n-добавлен аудиоплеер\n -добавлена кнопка загрузки изображения в слайдер","\n17 мая: \n-добавлена кнопка загрузки файла в плеер"]
+	var log=["16 мая: \n-добавлен аудиоплеер\n-добавлена кнопка загрузки изображения в слайдер","\n17 мая: \n-добавлена кнопка загрузки файла в плеер\n-графический файл из слайдера можно увеличить нажав на него \n-добавлены группы кнопкам\n-отображается имя загруженного аудиофайла"]
 	function changeLog(){
 		
 
