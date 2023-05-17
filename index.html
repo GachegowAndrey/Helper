@@ -168,6 +168,9 @@ style="width:30%">
 <button class="prvTr" onclick="prevTrack()"><=</button> 
 <button class="plP" onclick="playpauseTrack()">|></button> 
 <button class="nxtTr" onclick="nextTrack()">=></button>
+<label><img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
+            width="25" >
+<input id="audio-upload" type="file" /></label>
 <!--<div dropzone>
 	<label>
         		<img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
@@ -229,6 +232,52 @@ style="width:100%; border-radius:5px;">
 </td>
 </tr>
 </table>
+<script type="text/javascript" name="loadAudio">
+	function changeHandler({
+  target
+}) {
+  // Make sure we have files to use
+  if (!target.files.length) return;
+
+  // Create a blob that we can use as an src for our audio element
+  const urlObj = URL.createObjectURL(target.files[0]);
+  track_list.push({
+  	name:"",
+  	artist:"",
+  	image:"",
+  	path:urlObj
+  });
+  // Create  or choose  an audio element
+  //var audio = document.getElementById("aFile");
+  //var audio1 = document.getElementById("auFile");
+  
+ // const audio = document.createElement("audio");
+
+  // Clean up the URL Object after we are done with it
+  
+  audio.addEventListener("load", () => {
+    URL.revokeObjectURL(urlObj);
+  });
+  
+
+  // Append the audio element
+  //document.body.appendChild(audio);
+
+  // Allow us to control the audio
+ // audio.controls = "true";
+  
+  
+
+  // Set the src and start loading the audio from the file
+  //audio.src = urlObj;
+  
+ 
+}
+
+document
+  .getElementById("audio-upload")
+  .addEventListener("change", changeHandler);
+</script>
 <script type="text/javascript" name="downloadAudio">
 	dropZone.onclick = () => {
   input.click();
@@ -251,7 +300,7 @@ style="width:100%; border-radius:5px;">
 };
 </script>
 <script type="text/javascript" name="change">
-	var log=["16 мая: \n-добавлен аудиоплеер\n -добавлена кнопка загрузки изображения в слайдер"]
+	var log=["16 мая: \n-добавлен аудиоплеер\n -добавлена кнопка загрузки изображения в слайдер","\n17 мая: \n-добавлена кнопка загрузки файла в плеер"]
 	function changeLog(){
 		
 
