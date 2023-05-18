@@ -237,7 +237,7 @@ style="width:30%">
         	<label>
         		<img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
             width="25" >
-<input  type="file" onchange="donwload(this)" multiple="true">
+<input  type="file" onchange="donwload(this)" multiple="false" accept="image/*">
         	</label>
 </div>
 
@@ -257,7 +257,7 @@ style="width:30%">
 <button class="nxtTr" onclick="nextTrack()">=></button>
 <label><img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
             width="25" >
-<input id="audio-upload" type="file" /></label>
+<input id="audio-upload" type="file" accept="audio/*"/></label>
 <!--<div dropzone>
 	<label>
         		<img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
@@ -423,7 +423,7 @@ document
 };
 </script>
 <script type="text/javascript" name="change">
-	var log=["16 мая: \n-добавлен аудиоплеер\n-добавлена кнопка загрузки изображения в слайдер","\n17 мая: \n-добавлена кнопка загрузки файла в плеер\n-графический файл из слайдера можно увеличить нажав на него \n-добавлены группы кнопкам\n-отображается имя загруженного аудиофайла"]
+	var log=["16 мая: \n-добавлен аудиоплеер\n-добавлена кнопка загрузки изображения в слайдер","\n17 мая: \n-добавлена кнопка загрузки файла в плеер\n-графический файл из слайдера можно увеличить нажав на него \n-добавлены группы кнопкам\n-отображается имя загруженного аудиофайла","\n18 мая: \n-кнопка загрузки плеера/слайдера загружает только аудио/графический файл \n-плеер не воспроизводит сразу файл"]
 	function changeLog(){
 		
 
@@ -471,6 +471,12 @@ let curr_track = document.createElement('audio');
 // Определяем список треков, которые должны быть воспроизведены
 let track_list = [
 {
+name: "EarthMainTheme",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/EarthMainTheme.mp3"
+},
+{
 name: "Game of ThronesEnd",
 artist: "неизвестно",
 image: "Image URL",
@@ -483,28 +489,22 @@ image: "Image URL",
 path: "data/mp3/ArmyOfWizard.mp3"
 },
 {
-name: "EarthMainTheme",
-artist: "неизвестно",
-image: "Image URL",
-path: "data/mp3/EarthMainTheme.mp3"
-},
-{
 name: "Blues",
 artist: "неизвестно",
 image: "Image URL",
 path: "data/mp3/Blues.mp3"
 },
 {
-name: "Voland",
-artist: "неизвестно",
-image: "Image URL",
-path: "data/mp3/Voland.mp3"
-},
-{
 name: "Game of Thrones Drakaris",
 artist: "неизвестно",
 image: "Image URL",
 path: "data/mp3/igra-prestolov-drakaris.mp3"
+},
+{
+name: "Voland",
+artist: "неизвестно",
+image: "Image URL",
+path: "data/mp3/Voland.mp3"
 },
 {
 name: "Game of ThronesMainTheme",
@@ -596,7 +596,8 @@ else track_index = 0;
     
 // Загрузите и воспроизведите новый трек
 loadTrack(track_index);
-playTrack();
+pauseTrack();
+//playTrack();
 }
     
 function prevTrack() {
@@ -608,7 +609,8 @@ else track_index = track_list.length - 1;
     
 // Загрузите и воспроизведите новый трек
 loadTrack(track_index);
-playTrack();
+pauseTrack();
+//playTrack();
 }
 
 function seekTo() {
