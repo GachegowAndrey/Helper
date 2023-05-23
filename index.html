@@ -4,6 +4,20 @@
 <meta charset="utf-8" />
 <title>Helper</title>
 <style type="text/css">
+	.telling{
+		background-color: lightgreen;
+		border-radius: 10px;
+		font-weight: bold;
+		border: none;
+		color: purple;
+	}
+	.telling:hover{
+		background-color:green;
+		color: pink;
+		font-weight: 900;
+		cursor:pointer;
+		
+	}
 	.sliders span{
   line-height: 41px;
   font-size: 35px;
@@ -182,20 +196,20 @@ style="width:30%">
 
 <h2>Текстовая информация</h2>
 <div id="info" style="display:block;">
-<button onclick="Hi()">Hello</button><br>
-<button type="button" onclick="time()">Today!</button><br>
-<button type="button" onclick="document.getElementById('skills').style.display='block'; document.getElementById('info').style.display='none';">Что ты умеешь?</button><br>
-<button type="button" onclick="changeLog()" >Изменения</button><br> 
+<button class="telling" onclick="Hi()">Hello</button><br>
+<button class="telling" type="button" onclick="time()">Today!</button><br>
+<button class="telling" type="button" onclick="document.getElementById('skills').style.display='block'; document.getElementById('info').style.display='none';">Что ты умеешь?</button><br>
+<button class="telling" type="button" onclick="changeLog()" >Изменения</button><br> 
 </div>
 <div id="skills" style="display:none;">
-	<button id="show" onclick="document.getElementById('slider').style.display='block'; document.getElementById('show').style.display='none'; document.getElementById('hide').style.display='block';" style="display:block;" data-title="можно клавишами">Показать слайдер</button>
-<button id="hide" onclick="document.getElementById('slider').style.display='none'; document.getElementById('show').style.display='block'; document.getElementById('hide').style.display='none';" style="display:none;">Скрыть слайдер</button>
-<button id="showAudio" onclick="document.getElementById('audioPlayer').style.display='block'; document.getElementById('showAudio').style.display='none'; document.getElementById('hideAudio').style.display='block';" style="display:block;" data-title="можно клавишами">Показать аудиоплеер</button>
-<button id="hideAudio" onclick="document.getElementById('audioPlayer').style.display='none'; document.getElementById('showAudio').style.display='block'; document.getElementById('hideAudio').style.display='none';" style="display:none;">Скрыть плееер</button>
+	<button class="telling" id="show" onclick="document.getElementById('slider').style.display='block'; document.getElementById('show').style.display='none'; document.getElementById('hide').style.display='block';" style="display:block;" data-title="можно клавишами">Показать слайдер</button>
+<button class="telling" id="hide" onclick="document.getElementById('slider').style.display='none'; document.getElementById('show').style.display='block'; document.getElementById('hide').style.display='none';" style="display:none;">Скрыть слайдер</button>
+<button class="telling" id="showAudio" onclick="document.getElementById('audioPlayer').style.display='block'; document.getElementById('showAudio').style.display='none'; document.getElementById('hideAudio').style.display='block';" style="display:block;" data-title="можно клавишами">Показать аудиоплеер</button>
+<button class="telling" id="hideAudio" onclick="document.getElementById('audioPlayer').style.display='none'; document.getElementById('showAudio').style.display='block'; document.getElementById('hideAudio').style.display='none';" style="display:none;">Скрыть плееер</button>
     
-    <button type="button" onclick="Schedule()" >Расписание</button><br>
+    <button class="telling" type="button" onclick="Schedule()" >Расписание</button><br>
     
-    <button type="button" onclick="document.getElementById('info').style.display='block'; document.getElementById('skills').style.display='none';">Закрыть</button><br>
+    <button class="telling" type="button" onclick="document.getElementById('info').style.display='block'; document.getElementById('skills').style.display='none';">Закрыть</button><br>
 </div>
 
     
