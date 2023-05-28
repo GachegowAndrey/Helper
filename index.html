@@ -4,6 +4,53 @@
 <meta charset="utf-8" />
 <title>Helper</title>
 <style type="text/css">
+	input[type="text"], textarea {
+  width:110px;
+  background-color : #d1d1d1;
+  text-align:center;
+  color:green;  
+}
+.six{
+  background-color:#00CCFF;
+    text-align:center;
+}
+.sixThirty{
+  background-color: #FFFF33;
+  text-align:center;
+}
+.eight{
+  background-color: #33CC99;
+  text-align:center;
+}
+.twelve{
+  background-color: #3366FF;
+  text-align:center;
+}
+.twelveH{
+  background-color: #33CC99;
+  text-align:center;
+}
+.fourteen{
+  background-color: #FF3300;
+  text-align:center;
+}
+.seventeen{
+  background-color: #0BDA51;
+  text-align:center;
+}
+.seventeenH{
+  background-color: silver;
+  text-align:center;
+}
+.eighteenH{
+  background-color: gold;
+  text-align:center;
+}
+.nineteen{
+  background-color: #FF33ff;
+  text-align:center;
+}
+
 	.telling{
 		background-color: lightgreen;
 		border-radius: 10px;
@@ -17,6 +64,17 @@
 		font-weight: 900;
 		cursor:pointer;
 		
+	}
+	.arrows{
+
+
+    color: #0f0;
+    
+    font-size: 100px;
+    text-align: center;
+    line-height: 80px;
+		background-color: rgba(255, 0, 0, .3);
+    text-shadow: 0px 0px 15px rgb(0, 0, 119);
 	}
 	.sliders span{
   line-height: 41px;
@@ -207,8 +265,8 @@ style="width:30%">
 <button class="telling" id="showAudio" onclick="document.getElementById('audioPlayer').style.display='block'; document.getElementById('showAudio').style.display='none'; document.getElementById('hideAudio').style.display='block';" style="display:block;" data-title="можно клавишами">Показать аудиоплеер</button>
 <button class="telling" id="hideAudio" onclick="document.getElementById('audioPlayer').style.display='none'; document.getElementById('showAudio').style.display='block'; document.getElementById('hideAudio').style.display='none';" style="display:none;">Скрыть плееер</button>
     
-    <button class="telling" type="button" onclick="Schedule()" >Расписание</button><br>
-    
+    <button class="telling" id="showSchedule"  onclick="document.getElementById('Schedule').style.display='block'; document.getElementById('showSchedule').style.display='none'; document.getElementById('hideSchedule').style.display='block';" style="display:block;">Показать расписание</button>
+    <button class="telling" id="hideSchedule"  onclick="document.getElementById('Schedule').style.display='none'; document.getElementById('showSchedule').style.display='block'; document.getElementById('hideSchedule').style.display='none';" style="display:none;">Скрыть расписание</button>
     <button class="telling" type="button" onclick="document.getElementById('info').style.display='block'; document.getElementById('skills').style.display='none';">Закрыть</button><br>
 </div>
 
@@ -243,10 +301,10 @@ style="width:30%">
 	<h1>Общение</h1>
 	<p id="text"></p>
 	<div id="slider" style="display: none;">
-		<button id="buttonP" >&#10094;</button >
+		<button class="arrows" id="buttonP" >&#10094;</button >
 		<img src="data/res/BW.jpg" id="img" style="height:150px"class="Images" >
 	    
-        <button   id="buttonN" >&#10095;</button  >
+        <button  class="arrows" id="buttonN" >&#10095;</button  >
         <div class="downloadButton">
         	<label>
         		<img class="inputFileIcon" src="data/icons/add.svg" alt="Выбрать файл"
@@ -324,7 +382,174 @@ style="width:100%; border-radius:5px;">
 <!--Создаём столбец-->
 <th>
 <h3>Подвал</h3>
+<div id="Schedule" style="display:none;">
+	<h1 align="center">Расписание</h1>
 
+
+<table width="100%" border="1" cellspacing="0" cellpadding="5">
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"><div align="center"><b>Time</b></div></td>
+    <td bgcolor="#0066CC"> 
+      <div align="center"><b>Lunes</b></div>
+    </td>
+    <td bgcolor="#0066CC"> 
+      <div align="center"><b>Martes</b></div>
+    </td>
+    <td bgcolor="#0066CC"> 
+      <div align="center"><b>Miercoles</b></div>
+    </td>
+    <td bgcolor="#0066CC"> 
+      <div align="center"><b>Hueves</b></div>
+    </td>
+    <td bgcolor="#0066CC"> 
+      <div align="center"><b>Viernes</b></div>
+    </td>
+    <td bgcolor="#0066CC"> 
+      <div align="center"><b>Sabado</b></div>
+    </td>
+	<td bgcolor="#0066CC"> 
+      <div align="center"><b>Domingo</b></div>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">6.00- 6.30</div>
+    </td>
+    <td class="six" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="six" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="six" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="six" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="six" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="six" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="six" ><input  type="text" placeholder="Исходный текст" ></td>
+    
+	
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">6.30- 8.00</div>
+    </td>
+    <td class="sixThirty" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="sixThirty" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="sixThirty" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="sixThirty" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="sixThirty" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="sixThirty" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="sixThirty" ><input  type="text" placeholder="Исходный текст" ></td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">8.00 - 12.00</div>
+    </td>
+    <td class="eight" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eight" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eight" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eight" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eight" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eight" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eight" ><input  type="text" placeholder="Исходный текст" ></td>
+  </tr>
+  <tr> 
+   
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">12.00 - 12.20</div>
+    </td>
+    <td class="twelve" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="twelve" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="twelve" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="twelve" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="twelve" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="twelve" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="twelve" ><input  type="text" placeholder="Исходный текст" ></td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">12.30 - 14.00</div>
+    </td>
+   <td class="twelveH" ><input  type="text" placeholder="Исходный текст" ></td>
+   <td class="twelveH" ><input  type="text" placeholder="Исходный текст" ></td>
+   <td class="twelveH" ><input  type="text" placeholder="Исходный текст" ></td>
+   <td class="twelveH" ><input  type="text" placeholder="Исходный текст" ></td>
+   <td class="twelveH" ><input  type="text" placeholder="Исходный текст" ></td>
+   <td class="twelveH" ><input  type="text" placeholder="Исходный текст" ></td>
+   <td class="twelveH" ><input  type="text" placeholder="Исходный текст" ></td>   
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">14.00 - 17.00</div>
+    </td>
+    <td class="fourteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="fourteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="fourteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="fourteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="fourteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="fourteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="fourteen" ><input  type="text" placeholder="Исходный текст" ></td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">17.00 - 17.30</div>
+    </td>
+    <td class="seventeen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeen" ><input  type="text" placeholder="Исходный текст" ></td>
+    
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">17.30 - 18.15</div>
+    </td>
+    <td class="seventeenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="seventeenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">18.15 - 19.00</div>
+    </td>
+    <td class="eighteenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eighteenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eighteenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eighteenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eighteenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eighteenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="eighteenH" ><input  type="text" placeholder="Исходный текст" ></td>
+    
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFCC"> 
+      <div align="left">19.00 - 23.00</div>
+    </td>
+    <td class="nineteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="nineteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="nineteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="nineteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="nineteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="nineteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    <td class="nineteen" ><input  type="text" placeholder="Исходный текст" ></td>
+    
+  </tr>
+</table>
+</div>
 <!--Закрываем таблицу подвала. При желании в подвале можно
 сделать несколько строк и столбцов-->
 </th>
