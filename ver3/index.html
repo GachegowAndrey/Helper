@@ -79,10 +79,13 @@
 		context= canvas.getContext("2d");
 
 		canvas.onmousedown = startDrawing;
-		//canvas.dblclick=getText;
+		canvas.touchstart= startDrawing;
+		canvas.touchend=stopDrawing;
+		canvas.touchcancel=stopDrawing;
 		canvas.onmouseup = stopDrawing;
 		canvas.onmouseout = stopDrawing;
 		canvas.onmousemove = draw;
+		canvas.touchmove=draw;
 	}
 	function startDrawing(e){
 		// Начинаем рисовать
