@@ -1,169 +1,55 @@
-<!DOCTYPE html>
+﻿<DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<title>Canvas</title>
+	<title>Canvas ver7</title>
 </head>
 <body>
-	<div class="Toolbar">
-		- Color -<br>
-		<img id="redPen" src="res/pen_red.gif" alt="Красная кисть" onclick="changeColor('rgb(212,21,29)', this)">
-		<img id="blakcPen" src="res/pen_red.gif" alt="Красная кисть" onclick="changeColor('rgb(0,0,0)', this)">
-        <img id="greenPen" src="res/pen_green.gif" alt="Зеленая кисть" onclick="changeColor('rgb(131,190,61)', this)"> 
-        <img id="bluePen" src="res/pen_blue.gif" alt="Синяя кисть" onclick="changeColor('rgb(0,86,166)', this)">
-	</div>
-	<div class="Toolbar">
-		- Figures -<br>
-       <!--<button onclick="getSquare()">Square</button>
-       	<button onclick="getText()">text</button>
-       <button onclick="getCircle()">Circle</button>-->
-       <img src="res/textIcon.png" onclick="getText()">
-       
-	 </div>
-	<div class="Toolbar">
-		- Thickness -<br>
-        <img src="res/pen_thin.gif" alt="Тонкая кисть" onclick="changeThickness(1, this)">
-        <img src="res/pen_medium.gif" alt="Нормальная кисть" onclick="changeThickness(5, this)"> 
-        <img src="res/pen_thick.gif" alt="Толстая кисть" onclick="changeThickness(10, this)">
-	</div>
-	<div class="canvasContainer">
-		<canvas id="canvas" width="800" height="600"></canvas>
-	</div>
-	
-	<div class="Toolbar">
-		- Operations -<br>
-		<button onclick="saveCanvas()">Save canvas</button>
-		<button onclick="clearCanvas()">Clear canvas</button>
-		<div id="saveCopyContainer">
-			<img id="savedImageCopy"><br>
-		</div>
-	</div>
-<script type="text/javascript">
-	var canvas;
-	var context;
+	        <div id='colors' class="Toolbar">- Color -<br>
+            <button class="grad" id='black' onclick='changeColor("black", this)' ontouchstart='changeColor("black")'></button>
+            <button id='red' onclick='changeColor("red", this)' ontouchstart='changeColor("red")'></button>
+			<button id='cyan' onclick='changeColor("cyan", this)' ontouchstart='changeColor("cyan")'></button>
+			<button id='magenta' onclick='changeColor("magenta", this)' ontouchstart='changeColor("magenta")'></button>
+			<button id='yellow' onclick='changeColor("yellow", this)' ontouchstart='changeColor("yellow")'></button><br>
+            <button id='green' onclick='changeColor("green", this)' ontouchstart='changeColor("green")'></button>
+            <button id='blue' onclick='changeColor("blue", this)' ontouchstart='changeColor("blue")'></button>
+            <button id='orange' onclick='changeColor("orange", this)' ontouchstart='changeColor("orange")'></button>
+            <button id='pink' onclick='changeColor("pink", this)' ontouchstart='changeColor("pink")'></button>
+            <button id='white' onclick='changeColor("white", this)' ontouchstart='changeColor("white")'></button>
+                <hr>
+                <div>
+                    - Thickness -<br>
+            
+                <button onclick="changeThickness(1, this)">1</button>
+                <button onclick="changeThickness(2, this)">2</button>
+                <button onclick="changeThickness(3, this)">3</button>
+                <button onclick="changeThickness(4, this)">4</button>
+                <button onclick="changeThickness(5, this)">5</button><br>
+                <button onclick="changeThickness(6, this)">6</button>
+                <button onclick="changeThickness(7, this)">7</button>
+                <button onclick="changeThickness(8, this)">8</button>
+                <button onclick="changeThickness(9, this)">9</button>
+                <button onclick="changeThickness(10, this)">10</button>
+                </div>
 
-	var  previousColorElement;
-
-	function changeColor(color, imgElement){
-
-		//Меняем текущий цвет рисования
-		context.strokeStyle=color;
-
-		// Меняем стиль элемента <img>, по которому щелкнули
-		imgElement.className="Selected";
-
-		// Возвращаем ранее выбранный элемент <img> в нормальное состояние
-		if (previousColorElement!=null) {
-			previousColorElement.className="";
-		}
-		previousColorElement=imgElement;
-	}
-
-    var previousThicknessElement;
-	function changeThickness(thickness, imgElement){
-		// Изменяем текущую толщину линии
-		context.lineWidth = thickness;
-
-		// Меняем стиль элемента <img>, по которому щелкнули
-		imgElement.className = "Selected";
-
-		// Возвращаем ранее выбранный элемент <img> в нормальное состояние
-		if (previousThicknessElement!=null) {
-			previousThicknessElement.className="0;"
-		}
-		previousThicknessElement=imgElement;
-	}
-
-	window.onload = function () {
-		// body...
-		canvas=document.getElementById("canvas");
-		context= canvas.getContext("2d");
-
-		canvas.onmousedown = startDrawing;
-		canvas.touchstart= startDrawing;
-		canvas.touchend=stopDrawing;
-		canvas.touchcancel=stopDrawing;
-		canvas.onmouseup = stopDrawing;
-		canvas.onmouseout = stopDrawing;
-		canvas.onmousemove = draw;
-		canvas.touchmove=draw;
-	}
-	function startDrawing(e){
-		// Начинаем рисовать
-		isDrawing=true;
-
-		// Создаем новый путь (с текущим цветом и толщиной линии) 
-		context.beginPath();
-		// Нажатием левой кнопки мыши помещаем "кисть" на холст
-		context.moveTo(e.pageX - canvas.offsetLeft, e.pageY-canvas.offsetTop);
-		}
+            </div><br>
 
 
-     function draw(e){
-     	if (isDrawing==true) {
-     		// Определяем текущие координаты указателя мыши
-     		var x = e.pageX-canvas.offsetLeft;
-     		var y = e.pageY-canvas.offsetTop;
-
-     		// Рисуем линию до новой координаты
-     		context.lineTo(x,y);
-     		context.stroke();
-     	}
-     }
-
-function getSquare(){
-  //context.fillStyle = "rgb(100,150,185)";
-//context.lineWidth = 5;
-//context.strokeStyle = "gold";
-	context.rect(100,100,50,50);
-//context.fill();
-context.stroke();
-}
-function getCircle(){
-	//context.fillStyle = "rgb(100,150,185)";
-//context.lineWidth = 10;
-//context.strokeStyle = "red";
-	context.arc(110, 120, 100, 0, 2*Math.PI);
-//context.fill();
-context.stroke();
-}
-
-function getText(e){
-	//context.clearRect(0,0,canvas.width,canvas.height);
-//isDrawing=true;
-	var result =prompt("Enter text");
-	var ox =prompt("Enter value of x");
-	var oy =prompt("Enter value of y");
-	context.font = "bold 40px Verdana,sans-serif";
-context.lineWidth = 1;
-//context.strokeStyle = "red";
-context.strokeText(result, ox,canvas.height-oy);
-//isDrawing=false;
-
-}
-function stopDrawing() {
-    isDrawing = false;	
-}
-//очистка холста
-function clearCanvas(){
-	context.clearRect(0,0,canvas.width,canvas.height);
-}
-//сохранение изображения
-var url = canvas.toDataURL("image/jpeg");
-function saveCanvas(){
-	// Находим элемент <img>
-	var imageCopy = document.getElementById("savedImageCopy");
-
-	// Отображаем данные холста в элементе <img>
-	imageCopy.src= canvas.toDataURL();
-	
-	// Показываем элемент <div>, делая изображение видимым
-	// делая изображение видимым
-	var imageContainer = document.getElementById("savedCopyContainer");
-	imageContainer.style.display="block";
-   
-}
-
-</script>
+        <canvas id='canvas' width='800' height='600'></canvas>
+       <!-- <div>
+            <button onclick='clearCanvas()'>Clear</button>
+        </div>-->
+        <div class="Toolbar">
+        - Operations -<br>
+        <button class="Operations" onclick="saveCanvas()">Save canvas
+        </button>
+        <button class="Operations" onclick="clearCanvas()">Clear canvas
+        </button>
+        
+    </div>
+    <div id="saveCopyContainer">
+            <img id="savedImageCopy"><br>
+        </div>
+<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

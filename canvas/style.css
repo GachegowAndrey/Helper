@@ -1,44 +1,89 @@
-body{
-	background: white;
+button:hover
+{
+    cursor:grab;
+    outline:2px dotted red;
 }
-.Toolbar{
-	float: left;
-	font-family: 'Trebuchet MS';
-	font-size: 15px;
-	text-align: center;
-	background: #f4f7ad;
-	padding: 10px 10px 5px 10px;
 
-	border: 1px solid #7b449b; 
+.Toolbar {
+ float:left;
+ width:20%;
+ font-size: 15px;
+	text-align: center;
+ background: #f4f7ad;
+ border: 1px solid #7b449b;
 }
-.Toolbar button:hover, img:hover{
-	background: pink;
-	cursor: pointer;
+
+.Selected {
+    /*color: pink;
+	background-color:green;*/
+   border: 2px solid #abcdef;
 }
-canvas{
-	border: 2px dotted blue;
+#canvas
+{
+    float:right;
+	border: 1px solid black;
+    margin: 10px 0 10px 0;
+    cursor: pointer;
 }
-canvas:hover{
-	cursor:crosshair;
+button
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-top: 0px;
 }
-img:hover{
-	/*border: 2px groove #E4F0FE;*/
-	
-    background: white;
-     outline: dotted red;
-}
-img.Selected {
-    border: 5px groove #E4F0FE;
+.Operations{
+   border-radius: 5%;
+   width: 100px;
+   height: 50px;
 }
 #savedCopyContainer {
     display: none;
+	border: 1px solid black;
 }
 
 #savedCopyContainer img {
+     
     width: 250px;
     height: 150px;
 }
-.Toolbar button{
-	padding: 5px;
-	font-variant: normal;
+#black 
+{
+    background: black;
+}
+#orange 
+{
+    background: white;
+}
+#pink 
+{
+    background: pink;
+}
+#red
+{
+    background: red;
+}
+#cyan
+{
+    background: cyan;
+}
+#yellow
+{
+    background: yellow;
+}
+#magenta
+{
+    background: magenta;
+}
+#green 
+{ 
+    background: green;
+}
+#blue 
+{
+    background: blue;
+}
+#orange 
+{
+    background: orange;
 }
